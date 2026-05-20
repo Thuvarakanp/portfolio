@@ -232,6 +232,36 @@
   .doc .nt b{color:var(--ink);font-weight:600}
   @media(max-width:760px){.doc .r{grid-template-columns:1fr;gap:6px}.doc .db{padding:32px 26px}}
 
+  .gal{display:grid;grid-template-columns:repeat(12,1fr);grid-auto-rows:90px;gap:18px}
+  .gal .it{position:relative;overflow:hidden;background:var(--paper-2);border:1px solid var(--hair);
+    transition:transform .5s var(--spring),box-shadow .5s var(--soft);margin:0}
+  .gal .it img{width:100%;height:100%;object-fit:cover;display:block;
+    transition:transform .8s var(--spring),filter .4s var(--soft);
+    filter:saturate(.86) contrast(.97)}
+  .gal .it:hover{transform:translateY(-3px);box-shadow:0 22px 40px -22px rgba(26,24,21,.4)}
+  .gal .it:hover img{transform:scale(1.04);filter:saturate(1) contrast(1)}
+  .gal .it .cap{position:absolute;left:0;right:0;bottom:0;padding:18px 22px;
+    background:linear-gradient(to top,rgba(26,24,21,.92) 0%,rgba(26,24,21,.55) 55%,rgba(26,24,21,0) 100%);
+    color:var(--paper);display:flex;justify-content:space-between;gap:14px;align-items:flex-end}
+  .gal .it .cap b{font-family:var(--serif);font-weight:400;font-size:1.08rem;color:var(--paper);
+    display:block;margin-bottom:5px;letter-spacing:0;line-height:1.25}
+  .gal .it .cap .lbl{font-family:var(--mono);font-size:.56rem;letter-spacing:.14em;text-transform:uppercase;
+    color:rgba(246,244,239,.62)}
+  .gal .it .cap .yr{font-family:var(--mono);font-size:.56rem;letter-spacing:.12em;text-transform:uppercase;
+    color:var(--accent);flex:none;padding-left:14px;border-left:1px solid rgba(246,244,239,.22)}
+  .gal .a{grid-column:span 7;grid-row:span 4}
+  .gal .b{grid-column:span 5;grid-row:span 4}
+  .gal .c{grid-column:span 5;grid-row:span 3}
+  .gal .d{grid-column:span 7;grid-row:span 3}
+  .gal .e{grid-column:span 6;grid-row:span 3}
+  .gal .f{grid-column:span 6;grid-row:span 3}
+  @media(max-width:760px){.gal{grid-template-columns:1fr;grid-auto-rows:auto;gap:14px}
+    .gal .it{grid-column:1!important;grid-row:auto!important;aspect-ratio:4/3}}
+  .gal-note{margin-top:34px;font-family:var(--mono);font-size:.6rem;letter-spacing:.16em;
+    text-transform:uppercase;color:var(--ink-3);text-align:center;display:flex;align-items:center;
+    justify-content:center;gap:14px}
+  .gal-note::before,.gal-note::after{content:"";width:34px;height:1px;background:var(--hair)}
+
   .nums{display:grid;grid-template-columns:repeat(4,1fr)}
   .nums .n{padding:0 40px;border-left:1px solid var(--hair)}
   .nums .n:first-child{padding-left:0;border-left:none}
@@ -350,7 +380,20 @@
 </div></section>
 
 <section class="sec"><div class="wrap">
-<div class="sh rv"><span class="no">02</span><h2>By the numbers</h2><span class="tag">Aggregate &middot; sample</span></div>
+<div class="sh rv"><span class="no">02</span><h2>Visual evidence</h2><span class="tag">Field artifacts &middot; sample</span></div>
+<div class="gal stag">
+<figure class="it a"><img src="https://picsum.photos/seed/qa-regression-dashboard/1200/720" alt="Playwright regression dashboard with 1,247 tests across desktop and mobile suites, 99.4% pass rate." loading="lazy" decoding="async"><figcaption class="cap"><div><span class="lbl">Regression</span><b>Playwright suite at a glance</b></div><span class="yr">Project 01</span></figcaption></figure>
+<figure class="it b"><img src="https://picsum.photos/seed/qa-bug-repro-double-tap/900/1200" alt="Annotated bug repro: double-tap race on the pay button, captured with state-machine overlay." loading="lazy" decoding="async"><figcaption class="cap"><div><span class="lbl">Repro</span><b>Double-tap race, annotated</b></div><span class="yr">Project 01</span></figcaption></figure>
+<figure class="it c"><img src="https://picsum.photos/seed/qa-a11y-axe-report/900/700" alt="Before-and-after axe-core report: 47 violations down to zero critical." loading="lazy" decoding="async"><figcaption class="cap"><div><span class="lbl">Accessibility</span><b>axe-core, before / after</b></div><span class="yr">Project 02</span></figcaption></figure>
+<figure class="it d"><img src="https://picsum.photos/seed/qa-ci-pipeline-gate/1200/720" alt="CI pipeline view showing the a11y gate blocking a PR with severity rubric attached." loading="lazy" decoding="async"><figcaption class="cap"><div><span class="lbl">CI gate</span><b>WCAG as a hard pass / fail</b></div><span class="yr">Project 02</span></figcaption></figure>
+<figure class="it e"><img src="https://picsum.photos/seed/qa-exploratory-charter/1100/780" alt="Charter-based exploratory session notes with heuristics drawn from design critique." loading="lazy" decoding="async"><figcaption class="cap"><div><span class="lbl">Exploratory</span><b>Session charter &amp; heuristics</b></div><span class="yr">Project 03</span></figcaption></figure>
+<figure class="it f"><img src="https://picsum.photos/seed/qa-ai-screenshot-report/1100/780" alt="AI assistant turning annotated screenshots into a structured defect report in minutes." loading="lazy" decoding="async"><figcaption class="cap"><div><span class="lbl">AI workflow</span><b>Screenshot to report, ~4 min</b></div><span class="yr">Project 03</span></figcaption></figure>
+</div>
+<p class="gal-note rv">Placeholder imagery &middot; swap with real captures</p>
+</div></section>
+
+<section class="sec"><div class="wrap">
+<div class="sh rv"><span class="no">03</span><h2>By the numbers</h2><span class="tag">Aggregate &middot; sample</span></div>
 <div class="nums stag">
 <div class="n"><div class="v"><u>&minus;</u><span data-to="71">0</span><u>%</u></div><div class="l">Escaped production<br>defects reduced</div></div>
 <div class="n"><div class="v"><span data-to="1200">0</span><u>+</u></div><div class="l">Test cases authored<br>&amp; maintained</div></div>
