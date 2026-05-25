@@ -1,0 +1,125 @@
+// Portfolio + admin database
+// Run: npx prisma migrate dev --name init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// ---------- Content ----------
+
+// One row per page: SEO meta + the page's hero block.
+// page = 'home' | 'about' | 'work' | 'skills' | 'contact' | 'not-found'
+model Page {
+  id            String   @id // 'home', 'about', ...
+  title         String   // <title>
+  description   String   // <meta description>
+  ogTitle       String?
+  ogDescription String?
+  canonicalPath String?  // e.g. "/", "/about"
+  hero          String   // JSON: { kicker, lines[], lede, ctas: [{label, href, style}], indexBits[] }
+  sections      String   // JSON: page-specific structured content blob
+  updatedAt     DateTime @updatedAt
+}
+
+model CaseStudy {
+  id              String   @id @default(cuid())
+  order           Int      @unique
+  industry        String
+  context         String
+  role            String
+  badge           String   // "Shipped", "Adopted", "40+ defects"
+  badgeIcon       String   // phosphor icon id
+  title           String
+  projectName     String   // "Project 01 · Regression strategy"
+  challenge       String
+  approach        String
+  triangleAction  String
+  outcomes        String   // JSON: [{value, label}, ...]
+  updatedAt       DateTime @updatedAt
+}
+
+model GalleryItem {
+  id        String @id @default(cuid())
+  order     Int    @unique
+  slot      String // "a" | "b" | "c" | "d" | "e" | "f"
+  src       String
+  alt       String
+  label     String
+  title     String
+  reference String // e.g. "Project 01"
+  updatedAt DateTime @updatedAt
+}
+
+model NavItem {
+  id    String @id @default(cuid())
+  order Int    @unique
+  label String
+  href  String
+}
+
+// Singleton site-wide config
+model SiteConfig {
+  id               String   @id @default("singleton")
+  siteName         String   // "Thuvarakan"
+  siteTagline      String   // "QA"
+  status           String   // "Open to roles"
+  copyright        String
+  footerCredit     String   // "Built & tested by hand · v8 · status: pass · Icons Phosphor"
+  contact          String   // JSON: {email, linkedin, github, resume}
+  availability     String   // JSON: [{key, value, note}]
+  ogImage          String   // "/og-image.png"
+  themeColor       String   // "#F6F4EF"
+  updatedAt        DateTime @updatedAt
+}
+
+// ---------- Auth (NextAuth Prisma adapter standard schema) ----------
+
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  email         String    @unique
+  emailVerified DateTime?
+  image         String?
+  accounts      Account[]
+  sessions      Session[]
+  createdAt     DateTime  @default(now())
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
